@@ -1,12 +1,13 @@
 var TelegramBot = require('node-telegram-bot-api');
-var bot = new TelegramBot(token, {polling: true});
 require('dotenv').config();
 
 var token = process.env.Token;
+let bot_name = process.env.bot_name;
+var bot = new TelegramBot(token, {polling: true});
 
 var items = [
     {Key: "hi", Value: "Sup!"},
-    {Key: "name", Value: "Muscular Nerd!"},
+    {Key: "name", Value: bot_name+"!"},
     {Key: "", Value: ""},
     {Key: "", Value: ""},
     {Key: "", Value: ""},
@@ -16,7 +17,7 @@ var items = [
 bot.onText(/\/start/, (msg) => {   
     var chatId = msg.chat.id;
     // var echo = match[1];
-    var start = `Welcome to Muscular Nerd!!
+    var start = `Welcome to ${bot_name}!!
     \nYour one stop for technological excellence.
     \nType /help for more info.
     `;
@@ -26,10 +27,28 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/help/, (msg) => {   
     var chatId = msg.chat.id;
     // var echo = match[1];
-    var help = `Welcome to Muscular Nerd!
+    var help = `Welcome to ${bot_name}!
     \n"/echo *MSG*" - To Repeat your message
     \n"/get *MSG*" - To get items
     `;
+
+    bot.sendMessage(chatId, help);
+});
+
+bot.onText(/\/notes/, (msg) => {   
+    var chatId = msg.chat.id;
+    // var echo = match[1];
+    var help = `List of notes in ${bot_name}:
+        - abdulbari
+        - back2backswe_lectures
+        - bestdsques
+        - educative_lec
+        - faang
+        - gate_notes
+        - interviewcamp
+        - leetcodeques
+        - lockedques
+        - webdev `;
 
     bot.sendMessage(chatId, help);
 });
